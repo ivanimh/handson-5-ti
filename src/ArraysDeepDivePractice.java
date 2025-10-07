@@ -111,19 +111,17 @@ public class ArraysDeepDivePractice {
                 {3, 2, 1}
         };
 
-        int[][] sum = addMatrices(A, B);
-        int[][] scaledA = multiplyByScalar(A, 2);
-
-        displayMatrix("Matriks A", A);
-        displayMatrix("Mattriks B", B);
-        displayMatrix("A + B", sum);
-        displayMatrix("A * 2", scaledA);
-
         // - Implementasikan penjumlahan matriks (buat method addMatrices)
+        int[][] sum = addMatrices(A, B);
 
         // - Implementasikan perkalian setiap elemen dengan scalar 2 (buat method multiplyByScalar)
+        int[][] scaled = multiplyByScalar(A, 2);
 
         // - Print hasil operasi
+        System.out.println("Hasil Penjumlahan:");
+        displayMatrix(sum);
+        System.out.println("Hasil Perkalian Scalar:");
+        displayMatrix(scaled);
 
         // ===== ARRAY SEBAGAI PARAMETER DAN RETURN VALUE =====
         System.out.println("\\n=== ARRAY SEBAGAI PARAMETER DAN RETURN VALUE ===");
@@ -133,17 +131,15 @@ public class ArraysDeepDivePractice {
 
         // - Panggil method sortArray untuk mengurutkan array
         // (implementasikan method sortArray yang menerima array dan mengembalikan array yang sudah diurutkan)
-        int[] sorted = sortArray(numbers);
+        System.out.println("Sorted: " + Arrays.toString(sortArray(numbers)));
 
         // - Panggil method reverseArray untuk membalik array
         // (implementasikan method reverseArray)
-        int[] reversed = reverseArray(sorted);
+        System.out.println("Reversed: " + Arrays.toString(reverseArray(numbers)));
 
         // - Panggil method findMinMax untuk mencari nilai minimum dan maksimum
         // (implementasikan method yang mengembalikan array int dengan 2 elemen: [min, max])
-        int[] minMax = findMinMax(numbers);
-
-        printArray
+        System.out.println("Min/Max: " + Arrays.toString(findMinMax(numbers)));
 
         // ===== UTILITY METHODS JAVA.UTIL.ARRAYS =====
         System.out.println("\\n=== UTILITY METHODS JAVA.UTIL.ARRAYS ===");
@@ -194,14 +190,14 @@ public class ArraysDeepDivePractice {
 
         // Latihan 7: Array 3 dimensi
         // - Buat array 3D integer ukuran 2x3x4 (seperti 2 buah matriks 3x4)
-        int[][][] data = new int[2][3][4];
+        int[][][] numbers3d = new int[2][3][4];
 
         // - Isi dengan nilai berurutan dari 1
-        int value = 1;
+        int c = 1;
         for(int i = 0; i < 2; i++){
             for(int j = 0; j < 3; j++){
                 for(int k = 0; k < 4; k++){
-                    data[i][j][k] = value++;
+                    numbers3d[i][j][k] = c++;
                 }
             }
         }
@@ -211,7 +207,7 @@ public class ArraysDeepDivePractice {
             System.out.println("=== Matriks ke-" + (i + 1) + " ===");
             for(int j = 0; j < 3; j++){
                 for(int k = 0; k < 4; k++){
-                    System.out.println(data[i][j][k] + "\t");
+                    System.out.println(numbers3d[i][j][k] + "\t");
                 }
                 System.out.println();
             }
@@ -223,14 +219,35 @@ public class ArraysDeepDivePractice {
 
         // Latihan 8: Sistem nilai mahasiswa
         // - Buat array 2D untuk menyimpan nilai 5 mahasiswa, 4 mata kuliah
+        String[] namaMahasiswa = {"Tono", "Andi", "Toni", "Siti", "Cia"};
+        String[] mataKuliah = {"Matematika", "Fisika", "Kimia", "Biologi"};
 
         // - Hitung rata-rata per mahasiswa
+        int[][] grade = new int[namaMahasiswa.length][mataKuliah.length];
+        fillRandomGrades(grade, 60, 100);
 
         // - Hitung rata-rata per mata kuliah
 
         // - Tentukan mahasiswa dengan nilai tertinggi
+        double highestAvg = -1;
+        String topStudent = "";
 
         // - Print dalam format tabel yang rapi
+        System.out.println("Tabel Nilai:");
+        System.out.print("Nama\t");
+        System.out.println("Rata-rata");
+        for (String m : mataKuliah) System.out.print(m+"\t");
+        for (int i = 0; i < namaMahasiswa.length; i++) {
+            System.out.println();
+            System.out.print(namaMahasiswa[i] + "\t");
+            double avg = calculateAverage(grade[i]);
+            if (avg > highestAvg) { highestAvg = avg; topStudent = namaMahasiswa[i]; }
+            for (int j = 0; j < mataKuliah.length; j++) {
+                System.out.print(grade[i][j] + "\t");
+            }
+            System.out.println(avg);
+        }
+        System.out.println("Top Student: " + topStudent + " | Avg: " + highestAvg);
 
         // Latihan 9: Game Tic-Tac-Toe sederhana
         // - Buat array 2D char 3x3 untuk papan permainan
@@ -245,8 +262,20 @@ public class ArraysDeepDivePractice {
 
         // - Implementasikan method untuk mengecek apakah ada pemenang
         char winner = checkWinner(board);
+        if (winner != ' ') {
+            System.out.println("Pemenang: " + winner);
+        } else {
+            System.out.println("Belum ada pemenang.");
+        }
 
         // - Simulasikan beberapa langkah permainan
+        board[0][0] = 'X';
+        board[0][1] = 'O';
+        board[1][1] = 'X';
+        board[1][2] = 'O';
+        board[2][2] = 'X';
+
+        displayBoard(board);
     }
 
     // ===== IMPLEMENTASI METHODS =====
